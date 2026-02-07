@@ -4,11 +4,15 @@ import { clamp } from "../utils";
 /**
  * Compute the percentile of a value within a dataset (0-100).
  */
+// Single-pass counting instead of two .filter() calls (js-combine-iterations)
 function percentileRank(value: number, dataset: number[]): number {
-  const sorted = [...dataset].sort((a, b) => a - b);
-  const below = sorted.filter((v) => v < value).length;
-  const equal = sorted.filter((v) => v === value).length;
-  return ((below + equal * 0.5) / sorted.length) * 100;
+  let below = 0;
+  let equal = 0;
+  for (let i = 0; i < dataset.length; i++) {
+    if (dataset[i] < value) below++;
+    else if (dataset[i] === value) equal++;
+  }
+  return ((below + equal * 0.5) / dataset.length) * 100;
 }
 
 /**

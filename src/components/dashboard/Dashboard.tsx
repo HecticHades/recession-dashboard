@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import type { TimeRange } from "@/lib/types";
 import { useDashboardData } from "@/hooks/use-dashboard-data";
 import { getIndicatorsByCategory } from "@/lib/data/series-config";
@@ -8,12 +9,45 @@ import { categoryOrder } from "@/lib/utils";
 import TimeRangeSelector from "./TimeRangeSelector";
 import RecessionRiskMeter from "./RecessionRiskMeter";
 import EconomicCycleMeter from "./EconomicCycleMeter";
-import YieldCurveChart from "./YieldCurveChart";
-import GdpTrendChart from "./GdpTrendChart";
-import InflationRatesChart from "./InflationRatesChart";
 import IndicatorPanel from "./IndicatorPanel";
 import RegionHeatMap from "./RegionHeatMap";
-import RecessionTimeline from "./RecessionTimeline";
+
+// Dynamic imports for heavy Recharts-based components (bundle-dynamic-imports)
+const YieldCurveChart = dynamic(() => import("./YieldCurveChart"), {
+  loading: () => (
+    <div className="card p-6">
+      <div className="skeleton mb-4 h-4 w-32" />
+      <div className="skeleton h-52 w-full" />
+    </div>
+  ),
+});
+
+const GdpTrendChart = dynamic(() => import("./GdpTrendChart"), {
+  loading: () => (
+    <div className="card p-6">
+      <div className="skeleton mb-4 h-4 w-28" />
+      <div className="skeleton h-56 w-full" />
+    </div>
+  ),
+});
+
+const InflationRatesChart = dynamic(() => import("./InflationRatesChart"), {
+  loading: () => (
+    <div className="card p-6">
+      <div className="skeleton mb-4 h-4 w-36" />
+      <div className="skeleton h-56 w-full" />
+    </div>
+  ),
+});
+
+const RecessionTimeline = dynamic(() => import("./RecessionTimeline"), {
+  loading: () => (
+    <div className="card p-6">
+      <div className="skeleton mb-4 h-4 w-44" />
+      <div className="skeleton h-14 w-full" />
+    </div>
+  ),
+});
 
 export default function Dashboard() {
   const [timeRange, setTimeRange] = useState<TimeRange>("2Y");

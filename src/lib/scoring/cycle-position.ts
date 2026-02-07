@@ -45,13 +45,13 @@ export function detectCyclePosition(
     phase = "trough";
   }
 
-  // Direction from leading indicator trends
-  const improvingCount = leading.filter(
-    (s) => s.trend === "improving"
-  ).length;
-  const deterioratingCount = leading.filter(
-    (s) => s.trend === "deteriorating"
-  ).length;
+  // Single-pass trend counting (js-combine-iterations)
+  let improvingCount = 0;
+  let deterioratingCount = 0;
+  for (const s of leading) {
+    if (s.trend === "improving") improvingCount++;
+    else if (s.trend === "deteriorating") deterioratingCount++;
+  }
   const totalTrend = leading.length || 1;
 
   let direction: "accelerating" | "decelerating" | "stable";

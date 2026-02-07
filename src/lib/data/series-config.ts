@@ -381,9 +381,12 @@ export function getIndicatorsByCategory(category: string) {
   return INDICATOR_CONFIGS.filter((c) => c.category === category);
 }
 
+// Pre-built Map for O(1) lookup by ID (js-set-map-lookups)
+const CONFIG_BY_ID = new Map(INDICATOR_CONFIGS.map((c) => [c.id, c]));
+
 /** Get a single indicator config by ID */
 export function getIndicatorConfig(id: string) {
-  return INDICATOR_CONFIGS.find((c) => c.id === id);
+  return CONFIG_BY_ID.get(id);
 }
 
 /** All FRED series IDs needed */

@@ -41,10 +41,11 @@ export function useDashboardData(): DashboardData {
     return { ...(fredData ?? {}), ...(avData ?? {}) };
   }, [fredData, avData]);
 
+  // Depend only on allData which already captures both sources (rerender-dependencies)
   const signals = useMemo(() => {
-    if (!fredData && !avData) return [];
+    if (Object.keys(allData).length === 0) return [];
     return normalizeAll(INDICATOR_CONFIGS, allData);
-  }, [fredData, avData, allData]);
+  }, [allData]);
 
   const recessionScore = useMemo(() => {
     if (signals.length === 0) return null;
