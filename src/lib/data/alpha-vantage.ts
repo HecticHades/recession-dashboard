@@ -42,10 +42,13 @@ export async function fetchCommodityData(
 
   const json = await res.json();
 
+  if (!json || typeof json !== 'object') {
+    throw new Error(`Alpha Vantage API returned invalid response for ${commodity}`);
+  }
+
   // Check for rate limit or error messages
   if (json["Note"] || json["Information"]) {
-    console.warn(`Alpha Vantage rate limit/info for ${commodity}:`, json["Note"] || json["Information"]);
-    return [];
+    throw new Error(`Alpha Vantage rate limit for ${commodity}: ${json["Note"] || json["Information"]}`);
   }
 
   const entries: Array<{ date: string; value: string }> = json[dataKey] ?? [];

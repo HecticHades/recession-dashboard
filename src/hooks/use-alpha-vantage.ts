@@ -14,5 +14,6 @@ export function useAlphaVantageCommodities() {
     queryFn: () => getAllCommodityData(),
     staleTime: 30 * 60 * 1000, // 30 minutes
     gcTime: 2 * 60 * 60 * 1000, // 2 hours
+    placeholderData: {},
   });
 }

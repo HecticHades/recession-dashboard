@@ -35,6 +35,16 @@ export default function IndicatorCard({
     );
   }
 
+  if (!data || data.length === 0) {
+    return (
+      <div className="card p-4">
+        <div className="flex h-full min-h-[72px] items-center justify-center">
+          <p className="text-xs text-text-muted">No data available</p>
+        </div>
+      </div>
+    );
+  }
+
   const sorted = [...data].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
@@ -63,7 +73,7 @@ export default function IndicatorCard({
 
   return (
     <Link href={`/indicator/${config.id}`}>
-      <div className="card cursor-pointer p-4 transition-all duration-300 hover:scale-[1.01]">
+      <div className="card cursor-pointer p-4 transition-[transform,border-color,box-shadow] duration-300 hover:scale-[1.01]">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
             <p className="truncate text-[11px] tracking-wide text-text-muted">

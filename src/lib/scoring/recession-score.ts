@@ -5,6 +5,8 @@ import type {
 } from "../types";
 import { clamp } from "../utils";
 
+const COMMODITY_BONUS_WEIGHT = 0.05;
+
 /**
  * Category weights in the composite recession probability.
  * Leading indicators have the most predictive power.
@@ -100,8 +102,8 @@ export function computeRecessionScore(
 
   // Also factor in commodities if available (bonus weight)
   if (grouped.has("commodity")) {
-    overallSum += byCategory.commodity * 0.05;
-    overallWeightSum += 0.05;
+    overallSum += byCategory.commodity * COMMODITY_BONUS_WEIGHT;
+    overallWeightSum += COMMODITY_BONUS_WEIGHT;
   }
 
   const overall =

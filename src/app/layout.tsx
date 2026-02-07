@@ -47,6 +47,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            try {
+              var theme = localStorage.getItem('theme') || 'dark';
+              document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {}
+          })();
+        ` }} />
+      </head>
       <body
         className={`${outfit.variable} ${ibmPlexMono.variable} ${instrumentSerif.variable} antialiased`}
         style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}

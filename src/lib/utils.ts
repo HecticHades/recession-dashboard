@@ -1,5 +1,14 @@
 import type { TimeRange } from "./types";
 
+/** Abbreviate large numbers: 1e12→T, 1e9→B, 1e6→M */
+export function abbreviateNumber(value: number): string {
+  const abs = Math.abs(value);
+  if (abs >= 1e12) return (value / 1e12).toFixed(1) + 'T';
+  if (abs >= 1e9) return (value / 1e9).toFixed(1) + 'B';
+  if (abs >= 1e6) return (value / 1e6).toFixed(1) + 'M';
+  return value.toLocaleString();
+}
+
 /** Format a number for display based on format type */
 export function formatValue(
   value: number | null,
@@ -12,6 +21,7 @@ export function formatValue(
     case "percent":
       return `${value.toFixed(decimals)}%`;
     case "currency":
+      if (Math.abs(value) >= 1e6) return `$${abbreviateNumber(value)}`;
       return `$${value.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}`;
     case "thousands":
       return `${(value / 1000).toFixed(decimals)}K`;
@@ -19,6 +29,7 @@ export function formatValue(
       return value.toFixed(decimals);
     case "number":
     default:
+      if (Math.abs(value) >= 1e9) return abbreviateNumber(value);
       return value.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
   }
 }
@@ -65,16 +76,23 @@ export function getStartDate(range: TimeRange): string {
   return start.toISOString().split("T")[0];
 }
 
+/** Parse a YYYY-MM-DD date string as UTC to avoid timezone shifts */
+export function parseDate(dateStr: string): Date {
+  if (dateStr.includes('T')) return new Date(dateStr);
+  return new Date(dateStr + 'T00:00:00Z');
+}
+
 /** Format a date string for display */
 export function formatDate(dateStr: string, short = false): string {
-  const date = new Date(dateStr);
+  const date = parseDate(dateStr);
   if (short) {
-    return date.toLocaleDateString("en-US", { month: "short", year: "2-digit" });
+    return date.toLocaleDateString("en-US", { month: "short", year: "2-digit", timeZone: "UTC" });
   }
   return date.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 

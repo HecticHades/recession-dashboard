@@ -1,5 +1,7 @@
 import type { NormalizedSignal, CyclePosition, CyclePhase } from "../types";
 
+const DIRECTION_THRESHOLD = 0.6;
+
 /**
  * Detect economic cycle position from normalized signals.
  *
@@ -55,9 +57,9 @@ export function detectCyclePosition(
   const totalTrend = leading.length || 1;
 
   let direction: "accelerating" | "decelerating" | "stable";
-  if (improvingCount / totalTrend > 0.6) {
+  if (improvingCount / totalTrend > DIRECTION_THRESHOLD) {
     direction = "accelerating";
-  } else if (deterioratingCount / totalTrend > 0.6) {
+  } else if (deterioratingCount / totalTrend > DIRECTION_THRESHOLD) {
     direction = "decelerating";
   } else {
     direction = "stable";
@@ -93,7 +95,7 @@ export function detectCyclePosition(
     direction,
     leadingComposite,
     coincidentComposite,
-    monthsInPhase: 0, // Would need historical tracking to compute
+    monthsInPhase: 0, // Always 0: accurate tracking requires persisting phase history across sessions
   };
 }
 

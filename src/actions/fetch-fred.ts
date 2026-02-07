@@ -14,8 +14,7 @@ export async function getFredSeries(
 ): Promise<DataPoint[]> {
   const apiKey = process.env.FRED_API_KEY;
   if (!apiKey) {
-    console.error("FRED_API_KEY not configured");
-    return [];
+    throw new Error("FRED_API_KEY not configured");
   }
 
   try {
@@ -25,7 +24,7 @@ export async function getFredSeries(
     });
   } catch (error) {
     console.error(`Error fetching FRED series ${seriesId}:`, error);
-    return [];
+    throw error;
   }
 }
 
@@ -39,8 +38,7 @@ export async function getMultipleFredSeries(
 ): Promise<Record<string, DataPoint[]>> {
   const apiKey = process.env.FRED_API_KEY;
   if (!apiKey) {
-    console.error("FRED_API_KEY not configured");
-    return {};
+    throw new Error("FRED_API_KEY not configured");
   }
 
   try {
@@ -50,7 +48,7 @@ export async function getMultipleFredSeries(
     });
   } catch (error) {
     console.error("Error fetching multiple FRED series:", error);
-    return {};
+    throw error;
   }
 }
 
@@ -62,14 +60,13 @@ export async function getYieldCurveData(): Promise<
 > {
   const apiKey = process.env.FRED_API_KEY;
   if (!apiKey) {
-    console.error("FRED_API_KEY not configured");
-    return [];
+    throw new Error("FRED_API_KEY not configured");
   }
 
   try {
     return await fetchYieldCurveData(apiKey);
   } catch (error) {
     console.error("Error fetching yield curve data:", error);
-    return [];
+    throw error;
   }
 }

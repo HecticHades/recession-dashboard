@@ -56,6 +56,7 @@ export default function Dashboard() {
     recessionScore,
     cyclePosition,
     isLoading,
+    error,
   } = useDashboardData();
 
   return (
@@ -75,6 +76,22 @@ export default function Dashboard() {
         </div>
         <TimeRangeSelector selected={timeRange} onChange={setTimeRange} />
       </div>
+
+      {error && (
+        <div className="animate-reveal rounded-xl border border-[var(--color-danger)]/20 bg-[var(--color-danger)]/5 px-5 py-4">
+          <div className="flex items-start gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-danger)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 flex-shrink-0" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <div>
+              <p className="text-sm font-medium" style={{ color: "var(--color-danger)" }}>Data Loading Error</p>
+              <p className="mt-1 text-xs text-text-muted">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Row 1: Risk Meter + Cycle Meter */}
       <div className="animate-reveal stagger-1 grid gap-6 lg:grid-cols-2">

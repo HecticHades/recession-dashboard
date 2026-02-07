@@ -32,10 +32,10 @@ export function useDashboardData(): DashboardData {
 
   const {
     data: avData,
-    isLoading: avLoading,
+    error: avError,
   } = useAlphaVantageCommodities();
 
-  const isLoading = fredLoading || avLoading;
+  const isLoading = fredLoading;
 
   const allData = useMemo(() => {
     return { ...(fredData ?? {}), ...(avData ?? {}) };
@@ -65,6 +65,6 @@ export function useDashboardData(): DashboardData {
     recessionScore,
     cyclePosition,
     isLoading,
-    error: fredError ? String(fredError) : null,
+    error: fredError || avError ? [fredError && String(fredError), avError && String(avError)].filter(Boolean).join('; ') : null,
   };
 }

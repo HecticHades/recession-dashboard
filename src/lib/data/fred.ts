@@ -1,6 +1,7 @@
 import type { DataPoint, FredApiResponse } from "../types";
 
 const FRED_BASE_URL = "https://api.stlouisfed.org/fred";
+const BATCH_DELAY_MS = 500;
 
 /**
  * Fetch a single FRED series. Only call from server actions (API key hidden).
@@ -41,12 +42,17 @@ export async function fetchFredSeries(
 
   const data: FredApiResponse = await res.json();
 
+  if (!data.observations || !Array.isArray(data.observations)) {
+    throw new Error(`FRED API returned invalid response for ${seriesId}: missing observations array`);
+  }
+
   return data.observations
     .filter((obs) => obs.value !== ".")
     .map((obs) => ({
       date: obs.date,
       value: parseFloat(obs.value),
-    }));
+    }))
+    .filter((d) => !isNaN(d.value));
 }
 
 /**
@@ -80,9 +86,11 @@ export async function fetchMultipleFredSeries(
       }
     });
 
-    // Small delay between batches to avoid rate limiting
+    // Exponential backoff between batches to avoid rate limiting
     if (i + batchSize < seriesIds.length) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const batchIndex = Math.floor(i / batchSize);
+      const delay = Math.min(BATCH_DELAY_MS * Math.pow(1.5, batchIndex), 5000);
+      await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
 

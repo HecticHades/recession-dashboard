@@ -85,6 +85,7 @@ export interface CyclePosition {
   direction: "accelerating" | "decelerating" | "stable";
   leadingComposite: number; // -1 to +1
   coincidentComposite: number; // -1 to +1
+  /** Number of months in the current phase. Always 0 — requires historical phase tracking across sessions to compute accurately. */
   monthsInPhase: number;
 }
 

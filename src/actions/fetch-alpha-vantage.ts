@@ -12,14 +12,13 @@ export async function getAllCommodityData(): Promise<
 > {
   const apiKey = process.env.ALPHA_VANTAGE_API_KEY;
   if (!apiKey) {
-    console.error("ALPHA_VANTAGE_API_KEY not configured");
-    return {};
+    throw new Error("ALPHA_VANTAGE_API_KEY not configured");
   }
 
   try {
     return await fetchAllCommodities(apiKey);
   } catch (error) {
     console.error("Error fetching commodity data:", error);
-    return {};
+    throw error;
   }
 }

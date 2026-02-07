@@ -14,7 +14,7 @@ import {
 import { getIndicatorConfig } from "@/lib/data/series-config";
 import { useFredSeries } from "@/hooks/use-fred-series";
 import { useAlphaVantageCommodities } from "@/hooks/use-alpha-vantage";
-import { formatValue, formatDate, formatChange, getStartDate, categoryLabels } from "@/lib/utils";
+import { formatValue, formatDate, formatChange, getStartDate, categoryLabels, parseDate } from "@/lib/utils";
 import TimeRangeSelector from "@/components/dashboard/TimeRangeSelector";
 import type { TimeRange, DataPoint } from "@/lib/types";
 
@@ -71,7 +71,7 @@ export default function IndicatorDetailPage({
   }
 
   const sorted = [...rawData].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime()
   );
 
   const current = sorted.length > 0 ? sorted[sorted.length - 1] : null;
@@ -83,7 +83,6 @@ export default function IndicatorDetailPage({
   const { text: changeText, color: changeColor, arrow } = formatChange(change);
 
   const values = sorted.map((d) => d.value);
-  const min = values.length > 0 ? Math.min(...values) : null;
   const max = values.length > 0 ? Math.max(...values) : null;
   const avg =
     values.length > 0
@@ -109,6 +108,7 @@ export default function IndicatorDetailPage({
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
+          aria-hidden="true"
         >
           <polyline points="15 18 9 12 15 6" />
         </svg>

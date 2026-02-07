@@ -1,6 +1,7 @@
 "use client";
 
 import ThemeToggle from "./ThemeToggle";
+import DataFreshnessIndicator from "./DataFreshnessIndicator";
 
 export default function Header() {
   return (
@@ -23,6 +24,7 @@ export default function Header() {
               fill="none"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               {/* Seismograph line */}
               <polyline
@@ -49,22 +51,7 @@ export default function Header() {
         {/* Right side controls */}
         <div className="flex items-center gap-4">
           {/* Live data indicator */}
-          <div className="hidden items-center gap-2 rounded-full border border-border-secondary bg-bg-secondary/50 px-4 py-1.5 text-[11px] tracking-wide text-text-muted backdrop-blur-sm sm:flex">
-            <span className="relative flex h-2 w-2">
-              <span
-                className="absolute inline-flex h-full w-full rounded-full opacity-75"
-                style={{
-                  backgroundColor: "var(--color-success)",
-                  animation: "live-pulse 2s ease-in-out infinite",
-                }}
-              />
-              <span
-                className="relative inline-flex h-2 w-2 rounded-full"
-                style={{ backgroundColor: "var(--color-success)" }}
-              />
-            </span>
-            LIVE
-          </div>
+          <DataFreshnessIndicator />
 
           <ThemeToggle />
         </div>

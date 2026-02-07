@@ -24,11 +24,29 @@ export default function EconomicCycleMeter({
   position,
   isLoading,
 }: EconomicCycleMeterProps) {
-  if (isLoading || !position) {
+  if (isLoading) {
     return (
       <div className="card p-6">
         <div className="skeleton mb-4 h-4 w-36" />
         <div className="skeleton h-36 w-full" />
+      </div>
+    );
+  }
+
+  if (!position) {
+    return (
+      <div className="card p-6">
+        <h3 className="text-sm font-medium tracking-tight text-text-secondary" style={{ fontFamily: "var(--font-serif)" }}>
+          Economic Cycle Position
+        </h3>
+        <div className="mt-6 flex flex-col items-center justify-center py-8">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <p className="mt-3 text-xs text-text-muted">Unable to determine cycle position</p>
+        </div>
       </div>
     );
   }
@@ -119,6 +137,7 @@ export default function EconomicCycleMeter({
             style={{
               color: position.leadingComposite > 0 ? "var(--color-success)" : "var(--color-danger)",
               fontFamily: "var(--font-mono)",
+              fontVariantNumeric: "tabular-nums",
             }}
           >
             {position.leadingComposite > 0 ? "+" : ""}
@@ -132,6 +151,7 @@ export default function EconomicCycleMeter({
             style={{
               color: position.coincidentComposite > 0 ? "var(--color-success)" : "var(--color-danger)",
               fontFamily: "var(--font-mono)",
+              fontVariantNumeric: "tabular-nums",
             }}
           >
             {position.coincidentComposite > 0 ? "+" : ""}

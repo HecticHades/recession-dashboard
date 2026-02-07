@@ -1,5 +1,10 @@
 import type { DataPoint, IndicatorConfig, NormalizedSignal } from "../types";
-import { clamp } from "../utils";
+import { clamp, parseDate } from "../utils";
+
+const PERCENTILE_BLEND_WEIGHT = 0.7;
+const ZSCORE_BLEND_WEIGHT = 0.3;
+const ZSCORE_NORMALIZATION_DIVISOR = 3;
+const INVERTED_ZSCORE_DIVISOR = 2;
 
 /**
  * Compute the percentile of a value within a dataset (0-100).
@@ -37,7 +42,7 @@ function computeTrend(
   if (data.length < periods + 1) return "stable";
 
   const sorted = [...data].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime()
   );
   const recent = sorted.slice(-periods);
   const avgRecent = recent.reduce((s, d) => s + d.value, 0) / recent.length;
@@ -67,7 +72,7 @@ export function normalizeIndicator(
   if (data.length < 10) return null;
 
   const sorted = [...data].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime()
   );
 
   const values = sorted.map((d) => d.value);
@@ -91,16 +96,16 @@ export function normalizeIndicator(
     case "inverted":
       // Value itself is a spread; negative = bad (e.g. yield curve)
       // Use z-score more heavily for these
-      normalizedValue = clamp(z / 2, -1, 1);
+      normalizedValue = clamp(z / INVERTED_ZSCORE_DIVISOR, -1, 1);
       break;
   }
 
   // Blend with z-score for outlier sensitivity (70% percentile, 30% z-score)
-  const zNormalized = clamp(z / 3, -1, 1);
+  const zNormalized = clamp(z / ZSCORE_NORMALIZATION_DIVISOR, -1, 1);
   if (config.signalDirection !== "inverted") {
     const zContrib =
       config.signalDirection === "positive" ? zNormalized : -zNormalized;
-    normalizedValue = normalizedValue * 0.7 + zContrib * 0.3;
+    normalizedValue = normalizedValue * PERCENTILE_BLEND_WEIGHT + zContrib * ZSCORE_BLEND_WEIGHT;
   }
 
   normalizedValue = clamp(normalizedValue, -1, 1);
