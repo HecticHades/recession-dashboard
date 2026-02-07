@@ -4,6 +4,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import type { TimeRange } from "@/lib/types";
 import { useDashboardData } from "@/hooks/use-dashboard-data";
+import { useRegionalScores } from "@/hooks/use-regional-scores";
 import { getIndicatorsByCategory } from "@/lib/data/series-config";
 import { categoryOrder } from "@/lib/utils";
 import TimeRangeSelector from "./TimeRangeSelector";
@@ -58,6 +59,7 @@ export default function Dashboard() {
     isLoading,
     error,
   } = useDashboardData();
+  const regionalScores = useRegionalScores();
 
   return (
     <div className="flex flex-col gap-8">
@@ -108,7 +110,7 @@ export default function Dashboard() {
       {/* Row 3: Inflation + Regions */}
       <div className="animate-reveal stagger-3 grid gap-6 lg:grid-cols-2">
         <InflationRatesChart timeRange={timeRange} />
-        <RegionHeatMap usRiskScore={recessionScore?.overall ?? 0} />
+        <RegionHeatMap usRiskScore={recessionScore?.overall ?? 0} regionalScores={regionalScores} />
       </div>
 
       {/* Row 4: Historical Timeline */}
