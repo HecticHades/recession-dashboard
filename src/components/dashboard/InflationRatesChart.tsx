@@ -7,7 +7,6 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
 import { useFredSeries } from "@/hooks/use-fred-series";
 import { formatDate, getStartDate } from "@/lib/utils";
@@ -27,14 +26,13 @@ export default function InflationRatesChart({
 
   if (isLoading) {
     return (
-      <div className="card p-5">
+      <div className="card p-6">
         <div className="skeleton mb-4 h-4 w-36" />
         <div className="skeleton h-56 w-full" />
       </div>
     );
   }
 
-  // Compute YoY % change for CPI
   const cpiSorted = [...(cpiData ?? [])].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
@@ -49,11 +47,9 @@ export default function InflationRatesChart({
     })
     .filter(Boolean) as { date: string; cpiYoY: number }[];
 
-  // Build merged chart data
   const dateMap = new Map<string, { cpiYoY?: number; fedFunds?: number; pce?: number }>();
   cpiYoY.forEach((d) => dateMap.set(d.date, { cpiYoY: d.cpiYoY }));
 
-  // Compute YoY for PCE
   const pceSorted = [...(pceData ?? [])].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
@@ -82,14 +78,28 @@ export default function InflationRatesChart({
     .map(([date, vals]) => ({ date, ...vals }));
 
   return (
-    <div className="card p-5">
-      <div className="mb-4">
-        <h3 className="text-sm font-semibold text-text-secondary">
+    <div className="card p-6">
+      <div className="mb-5">
+        <h3
+          className="text-sm font-medium tracking-tight text-text-secondary"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
           Inflation vs Interest Rates
         </h3>
-        <p className="mt-0.5 text-xs text-text-muted">
-          CPI YoY (red) &middot; Core PCE YoY (orange) &middot; Fed Funds (purple)
-        </p>
+        <div className="mt-1 flex flex-wrap items-center gap-4 text-[11px] text-text-muted">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-[2px] w-3 rounded" style={{ backgroundColor: "var(--chart-6)" }} />
+            CPI YoY
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-[2px] w-3 rounded" style={{ backgroundColor: "var(--chart-5)" }} />
+            Core PCE YoY
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-[2px] w-3 rounded" style={{ backgroundColor: "var(--chart-2)" }} />
+            Fed Funds Rate
+          </span>
+        </div>
       </div>
 
       <div className="h-56">
@@ -97,14 +107,14 @@ export default function InflationRatesChart({
           <LineChart data={chartData} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
             <XAxis
               dataKey="date"
-              tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+              tick={{ fontSize: 10, fill: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
               axisLine={{ stroke: "var(--border-secondary)" }}
               tickLine={false}
               tickFormatter={(v) => formatDate(v + "-01", true)}
               interval="preserveStartEnd"
             />
             <YAxis
-              tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+              tick={{ fontSize: 10, fill: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
               axisLine={false}
               tickLine={false}
               tickFormatter={(v) => `${v}%`}
@@ -114,9 +124,11 @@ export default function InflationRatesChart({
               contentStyle={{
                 backgroundColor: "var(--bg-card)",
                 border: "1px solid var(--border-primary)",
-                borderRadius: 8,
+                borderRadius: 12,
                 fontSize: 12,
                 color: "var(--text-primary)",
+                fontFamily: "var(--font-mono)",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
               }}
               labelFormatter={(v) => formatDate(v + "-01")}
               formatter={(value, name) => {
@@ -126,17 +138,6 @@ export default function InflationRatesChart({
                   pce: "Core PCE YoY",
                 };
                 return [`${Number(value).toFixed(2)}%`, labels[String(name)] ?? name];
-              }}
-            />
-            <Legend
-              wrapperStyle={{ fontSize: 11, color: "var(--text-muted)" }}
-              formatter={(value) => {
-                const labels: Record<string, string> = {
-                  cpiYoY: "CPI YoY",
-                  fedFunds: "Fed Funds Rate",
-                  pce: "Core PCE YoY",
-                };
-                return labels[value] ?? value;
               }}
             />
             <Line

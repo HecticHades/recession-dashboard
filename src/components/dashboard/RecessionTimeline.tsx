@@ -29,25 +29,40 @@ export default function RecessionTimeline({
     return ((d.getTime() - timelineStart.getTime()) / totalMs) * 100;
   }
 
+  const avgDuration = Math.round(
+    NBER_RECESSIONS.reduce((sum, r) => {
+      const months =
+        (new Date(r.end).getTime() - new Date(r.start).getTime()) /
+        (30.44 * 24 * 60 * 60 * 1000);
+      return sum + months;
+    }, 0) / NBER_RECESSIONS.length
+  );
+
   return (
-    <div className="card p-5">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="card p-6">
+      <div className="mb-5 flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-semibold text-text-secondary">
+          <h3
+            className="text-sm font-medium tracking-tight text-text-secondary"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
             Historical Recession Timeline
           </h3>
-          <p className="mt-0.5 text-xs text-text-muted">
+          <p className="mt-0.5 text-[11px] text-text-muted">
             NBER-defined US recessions since 1970
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-text-muted">
-          <span className="inline-block h-2.5 w-6 rounded-sm bg-[var(--color-danger)]/30" />
+        <div className="flex items-center gap-2 text-[11px] text-text-muted">
+          <span
+            className="inline-block h-3 w-5 rounded-sm"
+            style={{ backgroundColor: "rgba(255, 59, 92, 0.25)" }}
+          />
           Recession
         </div>
       </div>
 
       {/* Timeline bar */}
-      <div className="relative h-12 rounded-lg bg-bg-secondary">
+      <div className="relative h-14 rounded-xl bg-bg-secondary/50">
         {NBER_RECESSIONS.map((recession) => {
           const left = dateToPercent(recession.start);
           const right = dateToPercent(recession.end);
@@ -56,30 +71,50 @@ export default function RecessionTimeline({
           return (
             <div
               key={recession.name}
-              className="group absolute top-0 h-full cursor-default rounded-sm bg-[var(--color-danger)]/20 transition-colors hover:bg-[var(--color-danger)]/40"
+              className="group absolute top-0 h-full cursor-default transition-colors"
               style={{
                 left: `${left}%`,
                 width: `${Math.max(width, 0.5)}%`,
+                backgroundColor: "rgba(255, 59, 92, 0.15)",
+                borderLeft: "1px solid rgba(255, 59, 92, 0.3)",
+                borderRight: "1px solid rgba(255, 59, 92, 0.3)",
               }}
             >
-              <div className="absolute -top-8 left-1/2 z-10 hidden -translate-x-1/2 whitespace-nowrap rounded bg-bg-card px-2 py-1 text-[10px] text-text-primary shadow-lg group-hover:block">
-                {recession.name} ({recession.start.substring(0, 4)}-{recession.end.substring(0, 4)})
+              <div
+                className="absolute -top-9 left-1/2 z-10 hidden -translate-x-1/2 whitespace-nowrap rounded-lg border border-border-secondary px-3 py-1.5 text-[10px] shadow-xl group-hover:block"
+                style={{
+                  backgroundColor: "var(--bg-card)",
+                  color: "var(--text-primary)",
+                  fontFamily: "var(--font-mono)",
+                }}
+              >
+                {recession.name} ({recession.start.substring(0, 4)}&ndash;{recession.end.substring(0, 4)})
               </div>
             </div>
           );
         })}
 
         {/* "Now" marker */}
-        <div className="absolute right-0 top-0 h-full w-0.5 bg-chart-1">
-          <div className="absolute -top-5 right-0 text-[10px] font-medium text-chart-1">
-            Now
+        <div
+          className="absolute right-0 top-0 h-full w-[2px]"
+          style={{ backgroundColor: "var(--accent)" }}
+        >
+          <div
+            className="absolute -top-5 right-0 text-[10px] font-semibold tracking-wide"
+            style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
+          >
+            NOW
           </div>
         </div>
 
         {/* Decade labels */}
-        <div className="absolute bottom-0 left-0 right-0 flex justify-between px-1 pb-0.5">
+        <div className="absolute bottom-0 left-0 right-0 flex justify-between px-2 pb-1">
           {["1970", "1980", "1990", "2000", "2010", "2020"].map((decade) => (
-            <span key={decade} className="text-[9px] text-text-muted">
+            <span
+              key={decade}
+              className="text-[9px] text-text-muted"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
               {decade}
             </span>
           ))}
@@ -87,24 +122,17 @@ export default function RecessionTimeline({
       </div>
 
       {/* Summary stats */}
-      <div className="mt-4 flex items-center justify-between text-xs text-text-muted">
-        <span>{NBER_RECESSIONS.length} recessions since 1970</span>
-        <span>
-          Avg. duration:{" "}
-          {Math.round(
-            NBER_RECESSIONS.reduce((sum, r) => {
-              const months =
-                (new Date(r.end).getTime() - new Date(r.start).getTime()) /
-                (30.44 * 24 * 60 * 60 * 1000);
-              return sum + months;
-            }, 0) / NBER_RECESSIONS.length
-          )}{" "}
-          months
+      <div className="mt-5 flex items-center justify-between text-[11px] text-text-muted">
+        <span style={{ fontFamily: "var(--font-mono)" }}>
+          {NBER_RECESSIONS.length} recessions since 1970
         </span>
-        <span>
+        <span style={{ fontFamily: "var(--font-mono)" }}>
+          Avg. duration: {avgDuration} months
+        </span>
+        <span style={{ fontFamily: "var(--font-mono)" }}>
           Current risk:{" "}
           <span
-            className="font-medium"
+            className="font-semibold"
             style={{
               color:
                 currentRiskScore > 60

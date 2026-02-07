@@ -37,17 +37,21 @@ export default function IndicatorDetailPage({
 
   if (!config) {
     return (
-      <div className="mx-auto max-w-[1600px] px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8">
         <div className="text-center">
-          <h1 className="text-xl font-bold text-text-primary">
+          <h1
+            className="text-2xl text-text-primary"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
             Indicator Not Found
           </h1>
-          <p className="mt-2 text-sm text-text-muted">
+          <p className="mt-3 text-sm text-text-muted">
             No indicator with ID &quot;{id}&quot; exists.
           </p>
           <Link
             href="/"
-            className="mt-4 inline-block text-sm text-chart-1 hover:underline"
+            className="mt-6 inline-block text-sm font-medium transition-colors"
+            style={{ color: "var(--accent)" }}
           >
             Back to Dashboard
           </Link>
@@ -78,7 +82,6 @@ export default function IndicatorDetailPage({
       : null;
   const { text: changeText, color: changeColor, arrow } = formatChange(change);
 
-  // Stats
   const values = sorted.map((d) => d.value);
   const min = values.length > 0 ? Math.min(...values) : null;
   const max = values.length > 0 ? Math.max(...values) : null;
@@ -93,15 +96,15 @@ export default function IndicatorDetailPage({
   }));
 
   return (
-    <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6">
+    <div className="relative mx-auto max-w-[1600px] px-5 py-8 sm:px-8" style={{ zIndex: 1 }}>
       {/* Back link */}
       <Link
         href="/"
-        className="mb-4 inline-flex items-center gap-1 text-sm text-text-muted hover:text-text-secondary"
+        className="mb-6 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-secondary"
       >
         <svg
-          width="16"
-          height="16"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -113,20 +116,29 @@ export default function IndicatorDetailPage({
       </Link>
 
       {/* Header */}
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+      <div className="animate-reveal mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <span className="rounded bg-bg-tertiary px-2 py-0.5 text-[10px] font-medium uppercase text-text-muted">
+            <span
+              className="rounded-md border border-border-secondary px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-text-muted"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
               {categoryLabels[config.category]}
             </span>
-            <span className="rounded bg-bg-tertiary px-2 py-0.5 text-[10px] font-medium uppercase text-text-muted">
-              {config.source === "fred" ? "FRED" : "Alpha Vantage"}
+            <span
+              className="rounded-md border border-border-secondary px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-text-muted"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              {config.source === "fred" ? "FRED" : "ALPHA VANTAGE"}
             </span>
           </div>
-          <h1 className="mt-2 text-xl font-bold text-text-primary">
+          <h1
+            className="mt-3 text-2xl text-text-primary"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
             {config.name}
           </h1>
-          <p className="mt-1 max-w-2xl text-sm text-text-muted">
+          <p className="mt-1.5 max-w-2xl text-sm text-text-muted">
             {config.description}
           </p>
         </div>
@@ -134,49 +146,67 @@ export default function IndicatorDetailPage({
       </div>
 
       {/* KPI row */}
-      <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="card p-4">
-          <p className="text-xs text-text-muted">Current Value</p>
-          <p className="mt-1 text-2xl font-bold text-text-primary">
+      <div className="animate-reveal stagger-1 mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="card p-5">
+          <p className="text-[10px] tracking-wide text-text-muted">CURRENT VALUE</p>
+          <p
+            className="mt-2 text-2xl font-bold text-text-primary"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
             {current
               ? formatValue(current.value, config.format, config.decimals)
-              : "—"}
+              : "\u2014"}
           </p>
           {current && (
-            <p className="mt-0.5 text-xs text-text-muted">
+            <p
+              className="mt-1 text-[11px] text-text-muted"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
               {formatDate(current.date)}
             </p>
           )}
         </div>
-        <div className="card p-4">
-          <p className="text-xs text-text-muted">Change</p>
-          <p className={`mt-1 text-2xl font-bold ${changeColor}`}>
+        <div className="card p-5">
+          <p className="text-[10px] tracking-wide text-text-muted">CHANGE</p>
+          <p
+            className={`mt-2 text-2xl font-bold ${changeColor}`}
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
             {arrow} {changeText}
           </p>
-          <p className="mt-0.5 text-xs text-text-muted">vs previous period</p>
+          <p className="mt-1 text-[11px] text-text-muted">vs previous period</p>
         </div>
-        <div className="card p-4">
-          <p className="text-xs text-text-muted">Period High</p>
-          <p className="mt-1 text-2xl font-bold text-text-primary">
+        <div className="card p-5">
+          <p className="text-[10px] tracking-wide text-text-muted">PERIOD HIGH</p>
+          <p
+            className="mt-2 text-2xl font-bold text-text-primary"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
             {max !== null
               ? formatValue(max, config.format, config.decimals)
-              : "—"}
+              : "\u2014"}
           </p>
         </div>
-        <div className="card p-4">
-          <p className="text-xs text-text-muted">Period Average</p>
-          <p className="mt-1 text-2xl font-bold text-text-primary">
+        <div className="card p-5">
+          <p className="text-[10px] tracking-wide text-text-muted">PERIOD AVERAGE</p>
+          <p
+            className="mt-2 text-2xl font-bold text-text-primary"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
             {avg !== null
               ? formatValue(avg, config.format, config.decimals)
-              : "—"}
+              : "\u2014"}
           </p>
         </div>
       </div>
 
       {/* Main chart */}
-      <div className="card p-5">
-        <h3 className="mb-4 text-sm font-semibold text-text-secondary">
-          {config.shortName} — Historical Data
+      <div className="animate-reveal stagger-2 card p-6">
+        <h3
+          className="mb-5 text-sm font-medium text-text-secondary"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          {config.shortName} &mdash; Historical Data
         </h3>
         {isLoading ? (
           <div className="skeleton h-72 w-full" />
@@ -196,7 +226,7 @@ export default function IndicatorDetailPage({
                     <stop
                       offset="5%"
                       stopColor="var(--chart-1)"
-                      stopOpacity={0.25}
+                      stopOpacity={0.2}
                     />
                     <stop
                       offset="95%"
@@ -207,14 +237,14 @@ export default function IndicatorDetailPage({
                 </defs>
                 <XAxis
                   dataKey="date"
-                  tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                  tick={{ fontSize: 10, fill: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                   axisLine={{ stroke: "var(--border-secondary)" }}
                   tickLine={false}
                   tickFormatter={(v) => formatDate(v, true)}
                   interval="preserveStartEnd"
                 />
                 <YAxis
-                  tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+                  tick={{ fontSize: 10, fill: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
                   axisLine={false}
                   tickLine={false}
                   width={60}
@@ -226,9 +256,11 @@ export default function IndicatorDetailPage({
                   contentStyle={{
                     backgroundColor: "var(--bg-card)",
                     border: "1px solid var(--border-primary)",
-                    borderRadius: 8,
+                    borderRadius: 12,
                     fontSize: 12,
                     color: "var(--text-primary)",
+                    fontFamily: "var(--font-mono)",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
                   }}
                   labelFormatter={(v) => formatDate(v)}
                   formatter={(value) => [
@@ -263,24 +295,36 @@ export default function IndicatorDetailPage({
       </div>
 
       {/* Data table (recent values) */}
-      <div className="card mt-6 overflow-hidden">
-        <div className="px-5 py-4">
-          <h3 className="text-sm font-semibold text-text-secondary">
+      <div className="animate-reveal stagger-3 card data-table mt-8 overflow-hidden">
+        <div className="px-6 py-5">
+          <h3
+            className="text-sm font-medium text-text-secondary"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
             Recent Observations
           </h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-t border-border-secondary bg-bg-secondary">
-                <th className="px-5 py-2.5 font-medium text-text-muted">
-                  Date
+              <tr className="border-t border-border-secondary bg-bg-secondary/50">
+                <th
+                  className="px-6 py-3 text-[10px] font-semibold tracking-wide text-text-muted"
+                  style={{ fontFamily: "var(--font-mono)" }}
+                >
+                  DATE
                 </th>
-                <th className="px-5 py-2.5 text-right font-medium text-text-muted">
-                  Value
+                <th
+                  className="px-6 py-3 text-right text-[10px] font-semibold tracking-wide text-text-muted"
+                  style={{ fontFamily: "var(--font-mono)" }}
+                >
+                  VALUE
                 </th>
-                <th className="px-5 py-2.5 text-right font-medium text-text-muted">
-                  Change
+                <th
+                  className="px-6 py-3 text-right text-[10px] font-semibold tracking-wide text-text-muted"
+                  style={{ fontFamily: "var(--font-mono)" }}
+                >
+                  CHANGE
                 </th>
               </tr>
             </thead>
@@ -301,13 +345,22 @@ export default function IndicatorDetailPage({
                       key={d.date}
                       className="border-t border-border-secondary"
                     >
-                      <td className="px-5 py-2 text-text-primary">
+                      <td
+                        className="px-6 py-2.5 text-text-primary"
+                        style={{ fontFamily: "var(--font-mono)" }}
+                      >
                         {formatDate(d.date)}
                       </td>
-                      <td className="px-5 py-2 text-right font-mono text-text-primary">
+                      <td
+                        className="px-6 py-2.5 text-right text-text-primary"
+                        style={{ fontFamily: "var(--font-mono)" }}
+                      >
                         {formatValue(d.value, config.format, config.decimals)}
                       </td>
-                      <td className={`px-5 py-2 text-right font-mono ${color}`}>
+                      <td
+                        className={`px-6 py-2.5 text-right ${color}`}
+                        style={{ fontFamily: "var(--font-mono)" }}
+                      >
                         {text}
                       </td>
                     </tr>
@@ -319,44 +372,55 @@ export default function IndicatorDetailPage({
       </div>
 
       {/* Series metadata */}
-      <div className="card mt-6 p-5">
-        <h3 className="mb-3 text-sm font-semibold text-text-secondary">
+      <div className="animate-reveal stagger-4 card mt-8 p-6">
+        <h3
+          className="mb-4 text-sm font-medium text-text-secondary"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
           Series Information
         </h3>
-        <div className="grid gap-y-2 text-xs sm:grid-cols-2">
+        <div className="grid gap-y-3 text-xs sm:grid-cols-2">
           <div>
-            <span className="text-text-muted">Series ID: </span>
-            <span className="font-mono text-text-primary">
+            <span className="text-text-muted">Series ID </span>
+            <span
+              className="font-medium text-text-primary"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
               {config.seriesId}
             </span>
           </div>
           <div>
-            <span className="text-text-muted">Source: </span>
-            <span className="text-text-primary">
+            <span className="text-text-muted">Source </span>
+            <span className="font-medium text-text-primary">
               {config.source === "fred"
                 ? "Federal Reserve Economic Data (FRED)"
                 : "Alpha Vantage"}
             </span>
           </div>
           <div>
-            <span className="text-text-muted">Unit: </span>
-            <span className="text-text-primary">{config.unit}</span>
+            <span className="text-text-muted">Unit </span>
+            <span className="font-medium text-text-primary">{config.unit}</span>
           </div>
           <div>
-            <span className="text-text-muted">Category: </span>
-            <span className="text-text-primary">
+            <span className="text-text-muted">Category </span>
+            <span className="font-medium text-text-primary">
               {categoryLabels[config.category]}
             </span>
           </div>
           <div>
-            <span className="text-text-muted">Signal Direction: </span>
-            <span className="text-text-primary capitalize">
+            <span className="text-text-muted">Signal Direction </span>
+            <span className="font-medium capitalize text-text-primary">
               {config.signalDirection}
             </span>
           </div>
           <div>
-            <span className="text-text-muted">Observations: </span>
-            <span className="text-text-primary">{sorted.length}</span>
+            <span className="text-text-muted">Observations </span>
+            <span
+              className="font-medium text-text-primary"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              {sorted.length}
+            </span>
           </div>
         </div>
       </div>

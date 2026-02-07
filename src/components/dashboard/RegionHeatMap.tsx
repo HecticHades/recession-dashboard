@@ -22,17 +22,20 @@ export default function RegionHeatMap({ usRiskScore }: RegionHeatMapProps) {
   );
 
   return (
-    <div className="card p-5">
-      <div className="mb-4">
-        <h3 className="text-sm font-semibold text-text-secondary">
+    <div className="card p-6">
+      <div className="mb-5">
+        <h3
+          className="text-sm font-medium tracking-tight text-text-secondary"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
           Regional Risk Overview
         </h3>
-        <p className="mt-0.5 text-xs text-text-muted">
+        <p className="mt-0.5 text-[11px] text-text-muted">
           Recession risk by major economy
         </p>
       </div>
 
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
         {regions.map((region) => {
           const { color } = region.available
             ? getRiskLevel(region.riskScore)
@@ -41,9 +44,16 @@ export default function RegionHeatMap({ usRiskScore }: RegionHeatMapProps) {
           return (
             <div
               key={region.regionCode}
-              className="flex items-center gap-3 rounded-lg bg-bg-secondary p-3"
+              className="flex items-center gap-3 rounded-xl border border-border-secondary bg-bg-secondary/40 p-3 transition-colors hover:bg-bg-secondary/70"
             >
-              <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-bg-tertiary text-xs font-bold text-text-muted">
+              <div
+                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg text-[11px] font-bold tracking-wide"
+                style={{
+                  backgroundColor: region.available ? `${color}10` : "var(--bg-tertiary)",
+                  color: region.available ? color : "var(--text-muted)",
+                  fontFamily: "var(--font-mono)",
+                }}
+              >
                 {region.regionCode}
               </div>
               <div className="min-w-0 flex-1">
@@ -51,26 +61,27 @@ export default function RegionHeatMap({ usRiskScore }: RegionHeatMapProps) {
                   {region.region}
                 </p>
                 {region.available ? (
-                  <div className="mt-1 flex items-center gap-2">
-                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-bg-tertiary">
+                  <div className="mt-1.5 flex items-center gap-2">
+                    <div className="h-1 flex-1 overflow-hidden rounded-full bg-bg-tertiary">
                       <div
                         className="h-full rounded-full transition-all duration-700"
                         style={{
                           width: `${region.riskScore}%`,
                           backgroundColor: color,
+                          boxShadow: `0 0 6px ${color}30`,
                         }}
                       />
                     </div>
                     <span
-                      className="text-xs font-semibold"
-                      style={{ color }}
+                      className="text-[11px] font-semibold"
+                      style={{ color, fontFamily: "var(--font-mono)" }}
                     >
                       {Math.round(region.riskScore)}
                     </span>
                   </div>
                 ) : (
-                  <p className="mt-1 text-[10px] italic text-text-muted">
-                    Coming soon
+                  <p className="mt-1 text-[10px] tracking-wide text-text-muted">
+                    COMING SOON
                   </p>
                 )}
               </div>

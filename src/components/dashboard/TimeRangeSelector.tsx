@@ -14,16 +14,17 @@ export default function TimeRangeSelector({
   onChange,
 }: TimeRangeSelectorProps) {
   return (
-    <div className="flex gap-1 rounded-lg border border-border-secondary bg-bg-secondary p-1">
+    <div className="flex gap-0.5 rounded-xl border border-border-secondary bg-bg-secondary/50 p-1 backdrop-blur-sm">
       {RANGES.map((range) => (
         <button
           key={range}
           onClick={() => onChange(range)}
-          className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
-            selected === range
-              ? "bg-chart-1 text-white"
-              : "text-text-muted hover:text-text-secondary hover:bg-bg-tertiary"
-          }`}
+          className="relative rounded-lg px-3 py-1.5 text-[11px] font-semibold tracking-wide transition-all duration-300"
+          style={{
+            color: selected === range ? "var(--bg-primary)" : "var(--text-muted)",
+            backgroundColor: selected === range ? "var(--accent)" : "transparent",
+            boxShadow: selected === range ? "0 2px 8px rgba(212, 168, 83, 0.25)" : "none",
+          }}
         >
           {range}
         </button>

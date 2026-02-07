@@ -18,10 +18,19 @@ export default function IndicatorPanel({
   isLoading,
 }: IndicatorPanelProps) {
   return (
-    <div className="animate-fade-in">
-      <h3 className="mb-3 text-sm font-semibold text-text-secondary">
-        {categoryLabels[category] ?? category}
-      </h3>
+    <div>
+      {/* Section header with gold accent bar */}
+      <div className="section-header mb-4">
+        <h3
+          className="text-sm font-medium tracking-tight text-text-secondary"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          {categoryLabels[category] ?? category}
+        </h3>
+        <span className="text-[10px] tracking-wide text-text-muted">
+          {indicators.length} indicators
+        </span>
+      </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {indicators.map((config) => (
           <IndicatorCard

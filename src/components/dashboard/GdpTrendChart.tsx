@@ -24,14 +24,13 @@ export default function GdpTrendChart({ timeRange }: GdpTrendChartProps) {
 
   if (isLoading) {
     return (
-      <div className="card p-5">
+      <div className="card p-6">
         <div className="skeleton mb-4 h-4 w-28" />
         <div className="skeleton h-56 w-full" />
       </div>
     );
   }
 
-  // Merge GDP and Industrial Production by date
   const gdpSorted = [...(gdpData ?? [])].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
@@ -39,10 +38,9 @@ export default function GdpTrendChart({ timeRange }: GdpTrendChartProps) {
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  // Build a map of dates for alignment
   const dateMap = new Map<string, { gdp?: number; indpro?: number }>();
   gdpSorted.forEach((d) => {
-    const key = d.date.substring(0, 7); // YYYY-MM
+    const key = d.date.substring(0, 7);
     dateMap.set(key, { ...dateMap.get(key), gdp: d.value });
   });
   indSorted.forEach((d) => {
@@ -59,14 +57,24 @@ export default function GdpTrendChart({ timeRange }: GdpTrendChartProps) {
     }));
 
   return (
-    <div className="card p-5">
-      <div className="mb-4">
-        <h3 className="text-sm font-semibold text-text-secondary">
+    <div className="card p-6">
+      <div className="mb-5">
+        <h3
+          className="text-sm font-medium tracking-tight text-text-secondary"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
           GDP & Industrial Production
         </h3>
-        <p className="mt-0.5 text-xs text-text-muted">
-          Real GDP (blue) vs Industrial Production Index (cyan)
-        </p>
+        <div className="mt-1 flex items-center gap-4 text-[11px] text-text-muted">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-[2px] w-3 rounded" style={{ backgroundColor: "var(--chart-1)" }} />
+            Real GDP
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-[2px] w-3 rounded" style={{ backgroundColor: "var(--chart-3)" }} />
+            Industrial Production
+          </span>
+        </div>
       </div>
 
       <div className="h-56">
@@ -74,17 +82,17 @@ export default function GdpTrendChart({ timeRange }: GdpTrendChartProps) {
           <AreaChart data={chartData} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
             <defs>
               <linearGradient id="gdpGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.2} />
+                <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.15} />
                 <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
               </linearGradient>
               <linearGradient id="indGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--chart-3)" stopOpacity={0.2} />
+                <stop offset="5%" stopColor="var(--chart-3)" stopOpacity={0.15} />
                 <stop offset="95%" stopColor="var(--chart-3)" stopOpacity={0} />
               </linearGradient>
             </defs>
             <XAxis
               dataKey="date"
-              tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+              tick={{ fontSize: 10, fill: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
               axisLine={{ stroke: "var(--border-secondary)" }}
               tickLine={false}
               tickFormatter={(v) => formatDate(v + "-01", true)}
@@ -92,7 +100,7 @@ export default function GdpTrendChart({ timeRange }: GdpTrendChartProps) {
             />
             <YAxis
               yAxisId="gdp"
-              tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+              tick={{ fontSize: 10, fill: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
               axisLine={false}
               tickLine={false}
               tickFormatter={(v) => `$${(v / 1000).toFixed(0)}T`}
@@ -101,7 +109,7 @@ export default function GdpTrendChart({ timeRange }: GdpTrendChartProps) {
             <YAxis
               yAxisId="indpro"
               orientation="right"
-              tick={{ fontSize: 10, fill: "var(--text-muted)" }}
+              tick={{ fontSize: 10, fill: "var(--text-muted)", fontFamily: "var(--font-mono)" }}
               axisLine={false}
               tickLine={false}
               width={40}
@@ -110,9 +118,11 @@ export default function GdpTrendChart({ timeRange }: GdpTrendChartProps) {
               contentStyle={{
                 backgroundColor: "var(--bg-card)",
                 border: "1px solid var(--border-primary)",
-                borderRadius: 8,
+                borderRadius: 12,
                 fontSize: 12,
                 color: "var(--text-primary)",
+                fontFamily: "var(--font-mono)",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
               }}
               labelFormatter={(v) => formatDate(v + "-01")}
               formatter={(value, name) => [
