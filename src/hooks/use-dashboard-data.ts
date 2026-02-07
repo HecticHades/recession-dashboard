@@ -1,0 +1,69 @@
+"use client";
+
+import { useMemo } from "react";
+import { useMultipleFredSeries } from "./use-fred-series";
+import { useAlphaVantageCommodities } from "./use-alpha-vantage";
+import { INDICATOR_CONFIGS, getIndicatorsBySource } from "@/lib/data/series-config";
+import { normalizeAll } from "@/lib/scoring/normalize";
+import { computeRecessionScore } from "@/lib/scoring/recession-score";
+import { detectCyclePosition } from "@/lib/scoring/cycle-position";
+import type { RecessionScore, CyclePosition, DataPoint, NormalizedSignal } from "@/lib/types";
+
+const fredConfigs = getIndicatorsBySource("fred");
+const fredSeriesIds = fredConfigs.map((c) => c.seriesId);
+
+interface DashboardData {
+  fredData: Record<string, DataPoint[]>;
+  avData: Record<string, DataPoint[]>;
+  allData: Record<string, DataPoint[]>;
+  signals: NormalizedSignal[];
+  recessionScore: RecessionScore | null;
+  cyclePosition: CyclePosition | null;
+  isLoading: boolean;
+  error: string | null;
+}
+
+export function useDashboardData(): DashboardData {
+  const {
+    data: fredData,
+    isLoading: fredLoading,
+    error: fredError,
+  } = useMultipleFredSeries(fredSeriesIds, undefined, 500);
+
+  const {
+    data: avData,
+    isLoading: avLoading,
+  } = useAlphaVantageCommodities();
+
+  const isLoading = fredLoading || avLoading;
+
+  const allData = useMemo(() => {
+    return { ...(fredData ?? {}), ...(avData ?? {}) };
+  }, [fredData, avData]);
+
+  const signals = useMemo(() => {
+    if (!fredData && !avData) return [];
+    return normalizeAll(INDICATOR_CONFIGS, allData);
+  }, [fredData, avData, allData]);
+
+  const recessionScore = useMemo(() => {
+    if (signals.length === 0) return null;
+    return computeRecessionScore(signals);
+  }, [signals]);
+
+  const cyclePosition = useMemo(() => {
+    if (signals.length === 0) return null;
+    return detectCyclePosition(signals);
+  }, [signals]);
+
+  return {
+    fredData: fredData ?? {},
+    avData: avData ?? {},
+    allData,
+    signals,
+    recessionScore,
+    cyclePosition,
+    isLoading,
+    error: fredError ? String(fredError) : null,
+  };
+}

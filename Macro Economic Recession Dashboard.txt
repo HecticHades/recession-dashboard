@@ -1,0 +1,116 @@
+ Macro Economic Recession Dashboard - Concept
+
+  Core Idea
+
+  A real-time recession probability dashboard that aggregates 20+ economic indicators across regions, scores them, and presents an at-a-glance "economic health" view with deep drill-down capabilities.
+
+  Key Indicators I'd Track (grouped by signal type)
+
+  Leading (predict recessions 6-18 months ahead)
+  - Yield curve spread (2Y-10Y) - the classic predictor
+  - PMI (Manufacturing & Services)
+  - Consumer Confidence Index
+  - Building permits / Housing starts
+  - Initial jobless claims trend
+  - Leading Economic Index (LEI)
+  - New orders / Inventories ratio
+
+  Coincident (confirm current state)
+  - GDP growth (QoQ, YoY)
+  - Industrial production
+  - Retail sales
+  - Employment / Unemployment rate
+  - Personal income growth
+
+  Financial Stress
+  - VIX (Fear Index)
+  - Credit spreads (IG & HY)
+  - Financial Conditions Index
+  - Central bank rates + direction
+  - Money supply (M2) growth
+
+  Lagging (confirm we were/are in recession)
+  - CPI / Inflation rate
+  - Corporate profits
+  - Consumer credit growth
+  - Labor cost per unit
+
+  Regional Coverage
+
+  - World (aggregate composite score)
+  - US (FRED API - richest data)
+  - China (Caixin PMI, PBoC, NBS data)
+  - India (RBI, GDP, Sensex)
+  - Russia (CBR, RUB, CPI)
+  - EMEA / Eurozone (ECB, Euro area PMI)
+  - Switzerland (SNB, SECO, SMI)
+
+  Data Sources (all free-tier)
+
+  - FRED API - US economic data (excellent, free)
+  - World Bank API - global GDP, inflation, employment
+  - IMF Data API - cross-country comparisons
+  - Alpha Vantage - market data, forex, commodities
+  - OECD Data - leading indicators, PMI composites
+  - Yahoo Finance - real-time market proxies
+
+  Dashboard Layout Concept
+
+  +--------------------------------------------------+
+  | GLOBAL RECESSION RISK METER  [Region Filter ▼]   |
+  | ████████░░ 62% — Elevated Risk                   |
+  +--------------------------------------------------+
+  | [Heat Map Grid]          | [Yield Curve Chart]   |
+  | US  ██ 45% Low           |  ~~~~~~~~~~~          |
+  | CN  ██ 71% Elevated      |     ~~~~~             |
+  | IN  ██ 38% Low           |        ~~~~           |
+  | RU  ██ 85% High          | 1Y 2Y 5Y 10Y 30Y     |
+  | EU  ██ 58% Moderate      |                       |
+  | CH  ██ 42% Low           |                       |
+  +--------------------------------------------------+
+  | [Leading Indicators]     | [Financial Stress]    |
+  | PMI ──────── 48.2 ▼      | VIX ──── 22.4 ▲      |
+  | Conf ─────── 98.1 ▼      | Spread ── 1.8% ▲     |
+  | Claims ──── 245K ▲       | FCI ──── -0.3 ►      |
+  +--------------------------------------------------+
+  | [GDP Trend Chart]        | [Inflation vs Rates]  |
+  |   Multi-line by region   |  Dual-axis chart      |
+  +--------------------------------------------------+
+  | [Historical Recession Overlay Timeline]           |
+  | Shows indicator values during past recessions     |
+  +--------------------------------------------------+
+
+  Tech Stack
+
+  - Next.js 15 (App Router, Server Components)
+  - TypeScript strict mode
+  - Tailwind CSS + custom design system (dark-mode-first)
+  - Recharts for charts (or Tremor for dashboard-grade components)
+  - TanStack Query for data fetching + caching
+  - Server Actions for API proxy (hide keys, rate limit)
+
+  Interactive Features
+
+  - Region filter (tabs or dropdown)
+  - Time range selector (1M, 3M, 6M, 1Y, 5Y, Max)
+  - Indicator drill-down (click any indicator for full history + context)
+  - Recession probability composite score per region
+  - Comparison mode (overlay two regions)
+  - Dark/light theme toggle
+
+  Future Expansion (Phase 2+)
+
+  - Asset price forecasting models (ML-based)
+  - Portfolio risk scoring
+  - Correlation matrix between indicators and asset classes
+  - Alert system (email/push when indicators cross thresholds)
+
+  ---
+  My Recommendation for Phase 1
+
+  Start with:
+  1. Project scaffold + design system (dark theme, dashboard layout)
+  2. US indicators first (FRED API is the best free source)
+  3. Core dashboard with recession score, yield curve, PMI, GDP, inflation
+  4. Region filter UI (populate US first, expand later)
+  5. Interactive charts with time range selection

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(npx create-next-app:*)",
+      "Bash(xcopy:*)",
+      "Bash(powershell -Command \"Copy-Item -Path ''temp_setup\\\\*'' -Destination ''.'' -Recurse -Force\")",
+      "Bash(powershell -Command \"Copy-Item -Path ''temp_setup\\\\.gitignore'' -Destination ''.gitignore'' -Force\")",
+      "Bash(powershell -Command \"Remove-Item -Path ''temp_setup'' -Recurse -Force\")",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 15 npm run dev:*)",
+      "Bash(git commit:*)",
+      "Bash(gh auth status:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

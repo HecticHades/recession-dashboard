@@ -1,0 +1,159 @@
+ Comprehensive Indicator Universe
+
+  Commodities & Hard Assets (your additions + more)
+  ┌──────────────────────────┬──────────────────────────────────────┬───────────────────────────────────┐
+  │        Indicator         │           Recession Signal           │            Boom Signal            │
+  ├──────────────────────────┼──────────────────────────────────────┼───────────────────────────────────┤
+  │ Gold price               │ Rising (flight to safety)            │ Falling (risk appetite)           │
+  ├──────────────────────────┼──────────────────────────────────────┼───────────────────────────────────┤
+  │ Silver price             │ Falling (industrial demand drops)    │ Rising (industrial + speculative) │
+  ├──────────────────────────┼──────────────────────────────────────┼───────────────────────────────────┤
+  │ Copper ("Dr. Copper")    │ Falling — famous leading indicator   │ Rising — industrial expansion     │
+  ├──────────────────────────┼──────────────────────────────────────┼───────────────────────────────────┤
+  │ Oil (WTI/Brent)          │ Demand destruction → price crash     │ Rising demand → price surge       │
+  ├──────────────────────────┼──────────────────────────────────────┼───────────────────────────────────┤
+  │ Lumber                   │ Falling (housing/construction slows) │ Rising (building boom)            │
+  ├──────────────────────────┼──────────────────────────────────────┼───────────────────────────────────┤
+  │ Baltic Dry Index         │ Falling (global trade collapsing)    │ Rising (shipping demand)          │
+  ├──────────────────────────┼──────────────────────────────────────┼───────────────────────────────────┤
+  │ Industrial metals basket │ Broad decline                        │ Broad rally                       │
+  └──────────────────────────┴──────────────────────────────────────┴───────────────────────────────────┘
+  Real Estate
+  ┌───────────────────────────────────┬──────────────────────────┬─────────────────────────────┐
+  │             Indicator             │     Recession Signal     │         Boom Signal         │
+  ├───────────────────────────────────┼──────────────────────────┼─────────────────────────────┤
+  │ Case-Shiller Home Price Index     │ Declining / stagnating   │ Rapid appreciation          │
+  ├───────────────────────────────────┼──────────────────────────┼─────────────────────────────┤
+  │ Housing starts & building permits │ Sharp decline            │ Surge in new construction   │
+  ├───────────────────────────────────┼──────────────────────────┼─────────────────────────────┤
+  │ Mortgage applications             │ Falling                  │ Rising                      │
+  ├───────────────────────────────────┼──────────────────────────┼─────────────────────────────┤
+  │ Housing affordability index       │ Irrelevant (prices fall) │ Deteriorating (bubble risk) │
+  ├───────────────────────────────────┼──────────────────────────┼─────────────────────────────┤
+  │ Commercial RE vacancy rates       │ Rising                   │ Low / falling               │
+  ├───────────────────────────────────┼──────────────────────────┼─────────────────────────────┤
+  │ Rental price growth               │ Slowing                  │ Accelerating                │
+  ├───────────────────────────────────┼──────────────────────────┼─────────────────────────────┤
+  │ Home price-to-income ratio        │ Normalizing              │ Stretching (bubble)         │
+  └───────────────────────────────────┴──────────────────────────┴─────────────────────────────┘
+  Labor Market (deep cuts)
+  ┌──────────────────────┬────────────────────────────────────────┬─────────────────────────┐
+  │      Indicator       │            Recession Signal            │       Boom Signal       │
+  ├──────────────────────┼────────────────────────────────────────┼─────────────────────────┤
+  │ Sahm Rule            │ Triggered (UE rises 0.5% from 12M low) │ Far from trigger        │
+  ├──────────────────────┼────────────────────────────────────────┼─────────────────────────┤
+  │ JOLTS job openings   │ Declining                              │ Record highs            │
+  ├──────────────────────┼────────────────────────────────────────┼─────────────────────────┤
+  │ Quits rate           │ People stop quitting (fear)            │ High quits (confidence) │
+  ├──────────────────────┼────────────────────────────────────────┼─────────────────────────┤
+  │ Temp employment      │ Declining (leading indicator!)         │ Rising                  │
+  ├──────────────────────┼────────────────────────────────────────┼─────────────────────────┤
+  │ Initial claims       │ Rising trend                           │ Low / falling           │
+  ├──────────────────────┼────────────────────────────────────────┼─────────────────────────┤
+  │ Continuing claims    │ Rising                                 │ Falling                 │
+  ├──────────────────────┼────────────────────────────────────────┼─────────────────────────┤
+  │ Average weekly hours │ Declining (hours cut before layoffs)   │ Rising / overtime       │
+  ├──────────────────────┼────────────────────────────────────────┼─────────────────────────┤
+  │ Wage growth          │ Decelerating                           │ Accelerating            │
+  └──────────────────────┴────────────────────────────────────────┴─────────────────────────┘
+  Speculative Excess / Bubble Indicators (boom → bust cycle)
+  ┌──────────────────────────────────────┬──────────────────────────────────┐
+  │              Indicator               │             Meaning              │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Buffett Indicator (Market Cap / GDP) │ >150% = overheated               │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Shiller CAPE ratio                   │ High P/E = late cycle froth      │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ IPO volume                           │ Surge = speculative peak         │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ SPAC activity                        │ Speculative excess               │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Margin debt levels                   │ High leverage = fragile boom     │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Crypto total market cap              │ Speculative appetite proxy       │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ VC funding levels                    │ Easy money = boom                │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ M&A activity                         │ Merger waves = late cycle        │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ Meme stock activity                  │ Retail speculation gauge         │
+  ├──────────────────────────────────────┼──────────────────────────────────┤
+  │ AAII Bull/Bear sentiment             │ Extreme bullishness = top signal │
+  └──────────────────────────────────────┴──────────────────────────────────┘
+  Credit & Monetary (often the earliest signals)
+  ┌────────────────────────────┬─────────────────────────────┬────────────────────────┐
+  │         Indicator          │      Recession Signal       │      Boom Signal       │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ Credit spreads (HY - IG)   │ Widening                    │ Tight / compressing    │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ Senior Loan Officer Survey │ Tightening standards        │ Loosening              │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ Bank lending growth        │ Contracting                 │ Expanding              │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ M2 money supply growth     │ Contracting                 │ Expanding rapidly      │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ Money velocity             │ Falling                     │ Rising                 │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ Credit impulse             │ Negative                    │ Positive               │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ Central bank balance sheet │ QT / shrinking              │ QE / expanding         │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ Real interest rate         │ High positive (restrictive) │ Negative (stimulative) │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ Repo market stress         │ Spiking rates               │ Calm                   │
+  ├────────────────────────────┼─────────────────────────────┼────────────────────────┤
+  │ TED Spread                 │ Widening (interbank stress) │ Narrow                 │
+  └────────────────────────────┴─────────────────────────────┴────────────────────────┘
+  Sentiment & Alternative Data
+  ┌───────────────────────────────────┬─────────────────────────────────┬────────────────────┐
+  │             Indicator             │        Recession Signal         │    Boom Signal     │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ CEO Confidence (Conference Board) │ Plunging                        │ High               │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ NFIB Small Business Optimism      │ Low / falling                   │ High / rising      │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ Michigan Consumer Sentiment       │ Falling                         │ Rising             │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ Google Trends "recession"         │ Spiking searches                │ Low interest       │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ Put/Call ratio                    │ High (hedging fear)             │ Low (complacency)  │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ Fund Manager Survey (BofA)        │ High cash, underweight equities │ Low cash, max long │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ Insider buy/sell ratio            │ Insiders buying (contrarian)    │ Insiders selling   │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ MOVE Index (bond vol)             │ Spiking                         │ Low                │
+  ├───────────────────────────────────┼─────────────────────────────────┼────────────────────┤
+  │ DXY (USD strength)                │ Rising (flight to safety)       │ Falling (risk-on)  │
+  └───────────────────────────────────┴─────────────────────────────────┴────────────────────┘
+  Financial Stress Indices (composite)
+
+  - St. Louis Fed Financial Stress Index
+  - Chicago Fed National Financial Conditions Index
+  - OFR Financial Stress Index
+  - Kansas City Fed Financial Stress Index
+  - Cleveland Fed Financial Stress Index
+
+  These are gold — they combine dozens of sub-indicators into a single reading.
+
+  ---
+  Revised Dashboard Concept: Economic Cycle Meter
+
+  Instead of just "recession risk", the core widget becomes a cycle position indicator:
+
+          EXPANSION          PEAK           CONTRACTION        TROUGH
+      ░░░░░████████████████▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                            ▲
+                       We are here
+
+      Score: +34 / 100  (Moderate Expansion, Late Cycle)
+      Trend: ← Decelerating
+
+  Each region gets its own cycle position. The dashboard shows:
+  - Where in the cycle we are (expansion/peak/contraction/trough)
+  - Direction of travel (accelerating or decelerating)
+  - Conviction level (how many indicators agree)
+  - Divergence alerts (when leading vs coincident indicators disagree)
+
+  ---
+  That gives us roughly 50-60 indicators across 7 categories. Obviously not all available for every region, but US alone has 40+ via FRED.

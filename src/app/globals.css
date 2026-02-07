@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-card-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+  --color-risk-low: var(--risk-low);
+  --color-risk-moderate: var(--risk-moderate);
+  --color-risk-high: var(--risk-high);
+  --color-risk-severe: var(--risk-severe);
+  --color-risk-critical: var(--risk-critical);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-phase-expansion: var(--phase-expansion);
+  --color-phase-peak: var(--phase-peak);
+  --color-phase-contraction: var(--phase-contraction);
+  --color-phase-trough: var(--phase-trough);
+}
+
+/* Dark theme (default) */
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-tertiary: #1a1a24;
+  --bg-card: #14141e;
+  --bg-card-hover: #1a1a28;
+
+  --text-primary: #f0f0f5;
+  --text-secondary: #a0a0b8;
+  --text-muted: #6b6b82;
+
+  --border-primary: #2a2a3a;
+  --border-secondary: #1e1e2e;
+
+  /* Semantic colors */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Recession risk gradient */
+  --risk-low: #22c55e;
+  --risk-moderate: #f59e0b;
+  --risk-high: #f97316;
+  --risk-severe: #ef4444;
+  --risk-critical: #dc2626;
+
+  /* Chart colors */
+  --chart-1: #6366f1;
+  --chart-2: #8b5cf6;
+  --chart-3: #06b6d4;
+  --chart-4: #14b8a6;
+  --chart-5: #f59e0b;
+  --chart-6: #ef4444;
+
+  /* Cycle phase colors */
+  --phase-expansion: #22c55e;
+  --phase-peak: #f59e0b;
+  --phase-contraction: #ef4444;
+  --phase-trough: #3b82f6;
+}
+
+/* Light theme override */
+[data-theme="light"] {
+  --bg-primary: #f8f9fc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0f1f5;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5f5fa;
+
+  --text-primary: #111118;
+  --text-secondary: #4a4a5e;
+  --text-muted: #8888a0;
+
+  --border-primary: #e0e0e8;
+  --border-secondary: #eaeaf0;
+
+  --chart-1: #4f46e5;
+  --chart-2: #7c3aed;
+  --chart-3: #0891b2;
+  --chart-4: #0d9488;
+  --chart-5: #d97706;
+  --chart-6: #dc2626;
+}
+
+html {
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Card glass effect */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  border-color: var(--border-primary);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Gauge animations */
+@keyframes gauge-fill {
+  from { stroke-dashoffset: 283; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+/* Skeleton loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--bg-card-hover) 50%,
+    var(--bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
